@@ -2,7 +2,7 @@ import Fastify, { FastifyInstance } from 'fastify'
 import initConfig from './plugin/config'
 import fastifyMikro from './plugin/mikro'
 import { UserRouter } from './service/user/'
-import { PingRouter } from './service/status/routes'
+import { PingRouter } from './service/status/'
 
 export default class Server {
     private _fastify: FastifyInstance

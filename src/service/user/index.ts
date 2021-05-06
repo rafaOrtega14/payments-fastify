@@ -1,5 +1,5 @@
 export { UserManager } from './manager/user'
 export { User } from './entity/user'
 export { UserController } from './controller/user'
-export { UserRouter } from './routes'
+export { UserRouter } from './router'
 export { UserType, UserBody } from './type/interface'
