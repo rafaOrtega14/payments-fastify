@@ -1,11 +1,9 @@
-import { FastifyInstance, FastifyServerOptions } from 'fastify'
-import { UserManager } from './manager/user'
-import { User } from './entity/user'
+import { FastifyInstance } from 'fastify'
 import { Static, Type } from '@sinclair/typebox'
-import { UserController } from './controller/user'
+import { UserManager, User, UserController } from './'
 
 export class UserRouter {
-    public static routes = async (fastify: FastifyInstance, options: FastifyServerOptions): Promise<void> => {
+    public static routes = async (fastify: FastifyInstance): Promise<void> => {
         const userRepo = fastify.orm.em.getRepository(User)
         const userManager = new UserManager(userRepo, fastify.log)
         fastify.decorateRequest('userManager', userManager)
@@ -22,14 +20,7 @@ export class UserRouter {
                     },
                 },
             },
-            async (request, reply) => {
-                const { body: user, log } = request
-                const userRepo = fastify.orm.em.getRepository(User)
-                const userManager = new UserManager(userRepo, log)
-
-                const message = await userManager.createUser(user.name)
-                reply.status(200).send(message)
-            },
+            UserController.createUser,
         )
     }
 }
