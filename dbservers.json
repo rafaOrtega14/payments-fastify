@@ -1,0 +1,13 @@
+{
+    "Servers": {
+      "1": {
+        "Name": "fastify-backbone - local",
+        "Group": "Local",
+        "Port": 5432,
+        "Username": "Truman",
+        "Host": "db",
+        "SSLMode": "disable",
+        "MaintenanceDB": "postgres"
+      }
+    }
+  }

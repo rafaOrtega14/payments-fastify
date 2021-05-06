@@ -1,0 +1,43 @@
+version: '3.7'
+
+services:
+    fastify-backbone:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: builder
+        volumes:
+            - ./src:/app/src
+            - ./nodemon.json:/app/nodemon.json
+            - ./.env:/app/.env
+        container_name: fastify-backbone
+        ports:
+            - '8080:8080'
+        command: npm run dev
+        env_file:
+            - .env.local
+            - .env
+
+    db:
+        image: postgres:13
+        volumes:
+            - db:/pgdata
+        ports:
+            - 5432:5432
+        env_file:
+            - .env.local
+            - .env
+
+    pgadmin:
+        image: dpage/pgadmin4:latest
+        volumes:
+            - ./dbservers.json:/pgadmin4/servers.json
+        ports:
+            - 5433:5433
+        env_file:
+            - .env.local
+            - .env
+
+volumes:
+    db:
+        driver: local
