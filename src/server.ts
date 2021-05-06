@@ -2,7 +2,7 @@ import Fastify, { FastifyInstance } from 'fastify'
 import initConfig from './plugin/config'
 import fastifyMikro from './plugin/mikro'
 import { UserRouter } from './service/user/'
-import status from './service/status/routes'
+import { PingRouter } from './service/status/routes'
 
 export default class Server {
     private _fastify: FastifyInstance
@@ -24,7 +24,7 @@ export default class Server {
         this._fastify.register(fastifyMikro, { migrate: true })
 
         // Registering routes
-        this._fastify.register(status)
+        this._fastify.register(PingRouter.routes)
         this._fastify.register(UserRouter.routes)
     }
 
