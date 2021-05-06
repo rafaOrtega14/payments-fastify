@@ -1,4 +1,5 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
+import { UserType } from '../'
 
 export class UserController {
     public static listUser = async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
@@ -8,14 +9,8 @@ export class UserController {
 
     public static createUser = async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
         const { body: user } = request
-        const userTyped = user as UserData
-
-        const message = await request.userManager.createUser(userTyped.name)
-        reply.status(200).send(message)
+        const userTyped = user as UserType
+        request.userManager.createUser(userTyped.name)
+        reply.status(200).send(user)
     }
-}
-
-interface UserData {
-    name: string
-    email: string
 }

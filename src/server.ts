@@ -5,10 +5,10 @@ import { UserRouter } from './service/user/'
 import status from './service/status/routes'
 
 export default class Server {
-    public fastify: FastifyInstance
+    private _fastify: FastifyInstance
 
     public constructor() {
-        this.fastify = Fastify({
+        this._fastify = Fastify({
             logger: {
                 prettyPrint: {
                     translateTime: 'SYS:h:MM:ss TT Z o',
@@ -18,14 +18,18 @@ export default class Server {
             },
         })
 
-        initConfig(this.fastify)
+        initConfig(this._fastify)
 
         // Adding plugins
-        this.fastify.register(fastifyMikro, { migrate: true })
+        this._fastify.register(fastifyMikro, { migrate: true })
 
         // Registering routes
-        this.fastify.register(status)
-        this.fastify.register(UserRouter.routes)
+        this._fastify.register(status)
+        this._fastify.register(UserRouter.routes)
+    }
+
+    public get fastify(): FastifyInstance {
+        return this._fastify
     }
 
     public async init(): Promise<void> {

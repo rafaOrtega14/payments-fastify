@@ -1,6 +1,5 @@
 import { FastifyInstance } from 'fastify'
-import { Static, Type } from '@sinclair/typebox'
-import { UserManager, User, UserController } from './'
+import { UserManager, User, UserController, UserType, UserBody } from './'
 
 export class UserRouter {
     public static routes = async (fastify: FastifyInstance): Promise<void> => {
@@ -16,7 +15,7 @@ export class UserRouter {
                 schema: {
                     body: UserBody,
                     response: {
-                        200: User,
+                        200: UserBody,
                     },
                 },
             },
@@ -30,10 +29,3 @@ declare module 'fastify' {
         userManager: UserManager
     }
 }
-
-const UserBody = Type.Object({
-    name: Type.String(),
-    mail: Type.Optional(Type.String({ format: 'email' })),
-})
-
-type UserType = Static<typeof UserBody>
