@@ -8,15 +8,15 @@ Adicionalmente se han creado unas queries como respuesta a la necesidad de encon
 
 Vamos a comenzar con los pokemons
 
-### 1. Todos los pokemon que tengan 1 o más evoluciones, se debe proporcionar por cada evolución: nombre, número y spawn time.
+### 1. Todos los pokemon que tengan 1 o más evoluciones, se debe proporcionar por cada evolución: nombre, número y spawn time.
 
-#### samples_pokemon.find({'next_evolution.0': {$exists: true}}, {num: 1, name: 1, spawn_time: 1})
+#### samples_pokemon.find({'next_evolution.0': {$exists: true}}, {num: 1, name: 1, spawn_time: 1})
 
 El objeto next_evolution contiene las siguientes evoluciones de un pokemon de modo que si queremos obtener los pokemos con una o mas evoluciones deberemos comprobar que el elemento 0 exista, eso quiere decir que al pokemon le queda un recorrido de por lo menos 1 evolución.
 
 Adicionalmente se han proyectado los campos pedidos num, name y spawn_time.
 
-### 2. Todos los pokemon de primera evolución que tengan alguna evolución con un avg spawn mayor de 4, se necesita el nombre y número de cada pokemon que cumpla.
+### 2. Todos los pokemon de primera evolución que tengan alguna evolución con un avg spawn mayor de 4, se necesita el nombre y número de cada pokemon que cumpla.
 
 #### [{$match: { $and: [{ 'prev_evolution.0': { $exists: true }}, { avg_spawns: {$gt: 4}}]}}, {$project: {prev_evolution: {$arrayElemAt: ['$prev_evolution',0]}}}]
 
