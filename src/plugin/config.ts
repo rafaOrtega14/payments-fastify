@@ -6,37 +6,15 @@ DotEnv.config()
 
 const schema = {
     type: 'object',
-    required: ['Port', 'Database', 'Environment'],
+    required: ['Port', 'Environment'],
     properties: {
         Port: {
             type: 'string',
             default: 3015,
         },
-        Database: {
-            type: 'object',
-            required: ['User', 'Password', 'Host', 'Port', 'Db'],
-            properties: {
-                User: {
-                    type: 'string',
-                    default: 'Truman',
-                },
-                Password: {
-                    type: 'string',
-                    default: 'Capote',
-                },
-                Host: {
-                    type: 'string',
-                    default: 'localhost',
-                },
-                Port: {
-                    type: 'number',
-                    default: 5432,
-                },
-                Db: {
-                    type: 'string',
-                    default: 'truman',
-                },
-            },
+        PaymentProvider: {
+            type: 'string',
+            default: 'paypal',
         },
         Environment: {
             type: 'string',
@@ -50,13 +28,7 @@ const options = {
     schema: schema,
     data: {
         Port: process.env.PORT,
-        Database: {
-            User: process.env.POSTGRES_USER,
-            Password: process.env.POSTGRES_PASSWORD,
-            Host: process.env.DB_URL,
-            Port: process.env.POSTGRES_PORT,
-            Db: process.env.POSTGRES_DB_NAME,
-        },
+        PaymentProvider: process.env.PAYMENT,
         Environment: process.env.ENVIRONMENT,
     },
 }
@@ -65,13 +37,7 @@ declare module 'fastify' {
     interface FastifyInstance {
         config: {
             Port: string
-            Database: {
-                User: string
-                Password: string
-                Host: string
-                Port: number
-                Db: string
-            }
+            PaymentProvider: string
             Environment: string
         }
     }

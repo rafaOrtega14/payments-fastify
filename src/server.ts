@@ -3,6 +3,7 @@ import mongoose from 'fastify-mongodb'
 import initConfig from './plugin/config'
 import { PingRouter } from './controller/status'
 import { PokemonRouter } from './controller/payment'
+import Payment from './plugin/Payment'
 
 export default class Server {
     private _fastify: FastifyInstance
@@ -21,6 +22,7 @@ export default class Server {
         initConfig(this._fastify)
 
         // Adding plugins
+        this._fastify.register(Payment)
         this._fastify.register(mongoose, {
             forceClose: true,
             url: 'mongodb+srv://testUser:testUser123@cluster0.repty.mongodb.net/pokemonsample',
