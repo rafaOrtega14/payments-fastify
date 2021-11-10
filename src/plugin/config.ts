@@ -10,7 +10,7 @@ const schema = {
     properties: {
         Port: {
             type: 'string',
-            default: 8080,
+            default: 3015,
         },
         Database: {
             type: 'object',
@@ -53,7 +53,7 @@ const options = {
         Database: {
             User: process.env.POSTGRES_USER,
             Password: process.env.POSTGRES_PASSWORD,
-            Host: process.env.POSTGRES_HOST,
+            Host: process.env.DB_URL,
             Port: process.env.POSTGRES_PORT,
             Db: process.env.POSTGRES_DB_NAME,
         },
