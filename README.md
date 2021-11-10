@@ -37,3 +37,9 @@ Para hacer la aplicación he decidido utilizar fastify, un framework de API REST
 3. Después he añadido un plugin con el factory de modo que desde las variables de entorno podamos setear el proveedor (Stripe o Paypal) lo bueno de esto es que es un solo punto donde podemos cambiar el proveedor de pagos y desde un punto muy temprano de la aplicación
 4. Como los puligns en fastify decoran la request llamo a mi clase payment que contiene la instancia concreta del proveedor que vamos a usar 
 
+## Endpoints
+### GET payment/pay
+### GET payment/reimburse
+### GET payment/reimburse/partial
+
+NPM RUN DEV para iniciar el servidor en el puerto 3015, adicionalmente hay un docker que expone el proyecto en el puerto 8080
